@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context="ui.vote.SurveyWriteFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/surveyWriteToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="start"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleCentered="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/color_text_input_stroke"
+                app:hintTextColor="@color/third">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surveyWriteEditTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_semibold"
+                    android:hint="설문조사 주제"
+                    android:includeFontPadding="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/surveyWriteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_semibold"
+                android:includeFontPadding="false"
+                android:text="최소 2개 이상의 항목을 작성해주세요"
+                android:textColor="@color/gray" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/color_text_input_stroke"
+                app:hintTextColor="@color/third">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surveyWirteEditTextWrite1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_semibold"
+                    android:hint="첫 번째 항목 입력"
+                    android:includeFontPadding="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/gray"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/color_text_input_stroke"
+                app:hintTextColor="@color/third">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surveyWriteEditTextWrite2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_semibold"
+                    android:hint="두 번째 항목 입력"
+                    android:includeFontPadding="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/gray"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/color_text_input_stroke"
+                app:hintTextColor="@color/third">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surveyWirteEditTextWrite3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_semibold"
+                    android:hint="세 번째 항목 입력"
+                    android:includeFontPadding="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/surveyWriteTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_semibold"
+                android:includeFontPadding="false"
+                android:text="어떤 내용의 설문조사인지 알려주세요"
+                android:textColor="@color/gray" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/gray"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/color_text_input_stroke"
+                app:hintTextColor="@color/third">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surveyWriteTextViewContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_semibold"
+                    android:hint="설문조사 내용"
+                    android:includeFontPadding="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CalendarView
+                android:id="@+id/surveyWriteCalender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/surveyWriteTextViewStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="시작 날짜" />
+
+                <TextView
+                    android:id="@+id/surveyWriteTextViewEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="종료 날짜" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/surveyWriteTextViewStartDate1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="2019-03-01" />
+
+                <TextView
+                    android:id="@+id/surveyWriteTextViewEndDate1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="2019-03-01" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/surveyWriteButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/style_pointbutton_radias"
+        android:elevation="0dp"
+        android:fontFamily="@font/notosans_semibold"
+        android:includeFontPadding="false"
+        android:text="설문조사 만들기"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 앨범으로부터 사진을 가져오기 위한 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/aparttalk5"
+        android:label="@string/ApartTalk_App_Name"
+        android:roundIcon="@mipmap/aparttalk5_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FinalProjectApartTalk"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.home.AlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.kakao.sdk.auth.AppsHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- 배송지 피커를 위한 설정 -->
+                <data android:scheme="${NATIVE_APP_KEY}}" />
+                <data android:host="address" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.parking.ParkingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.inquiry.InquiryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/CustomTheme"/>
+        <activity
+            android:name=".ui.vote.VoteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/CustomTheme"/>
+        <activity
+            android:name=".ui.reservation.ReserveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.mywrite.MyWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.service.ServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.info.InfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entiremenu.FireCheck.FireCheckActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.login.SignUpActivity"
+            android:exported="false"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name=".ui.entiremenu.OperationInfo.OperationInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.broadcast.activity.BroadcastActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entiremenu.PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entiremenu.UserAgreementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entiremenu.CompanyInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.facility.DetailFacilityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.facility.FacReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.community.activity.CommunityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.location.LocationShowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entiremenu.AptSchedule.AptScheduleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.ApartTalk">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="oauth"
+                    android:scheme="${NATIVE_APP_KEY}" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
