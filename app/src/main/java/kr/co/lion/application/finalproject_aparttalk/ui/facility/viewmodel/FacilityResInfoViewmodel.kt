@@ -48,8 +48,8 @@ class FacilityResInfoViewmodel : ViewModel() {
 
 
     //예약 정보를 userUid값으로 가져온다
-    suspend fun getFacilityResData(userUid:String) {
-        val facilityInfo = facilityResRepository.getFacilityInfoData(userUid)
+    suspend fun getFacilityResData(userUid:String, reservationState:Boolean) {
+        val facilityInfo = facilityResRepository.getFacilityInfoData(userUid, reservationState)
         val facilityInfoList = mutableListOf<FacilityResModel>()
 
         facilityInfo.forEach { facilityInfoData ->

@@ -79,7 +79,7 @@ class DetailFacilityActivity : AppCompatActivity() {
                 if (authUser != null){
                     val user = App.userRepository.getUser(authUser.uid)
                     if (user != null){
-                        viewModel.getFacilityResData(user.uid)
+                        viewModel.getFacilityResData(user.uid, true)
 
                         viewModel.facilityList.observe(this@DetailFacilityActivity){value ->
                             val isOneDayPassed = viewModel.checkFacilityRes()

@@ -5,8 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
+import kr.co.lion.application.finalproject_aparttalk.repository.FacilityResRepository
 
 class ReservationViewModel : ViewModel() {
+
+    private val facilityResRepository = FacilityResRepository()
+
+    private val _facilityGetList = MutableLiveData<List<FacilityResModel>>()
+    val facilityGetList : LiveData<List<FacilityResModel>> = _facilityGetList
 
     private val _reservations = MutableLiveData<List<FacilityResModel>>()
     val reservations: LiveData<List<FacilityResModel>> get() = _reservations
@@ -19,34 +25,19 @@ class ReservationViewModel : ViewModel() {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    init {
-        _isReservationCompleted.value = false
-        loadReservationsFromFirestore()
-    }
 
-    fun loadReservationsFromFirestore() {
-        firestore.collection("reservations")
-            .get()
-            .addOnSuccessListener { result ->
-                val reservationsList = result.mapNotNull { document ->
-                    document.toObject(FacilityResModel::class.java)
-                }
-                _reservations.value = reservationsList
-            }
-            .addOnFailureListener { exception ->
-                // 실패 처리 로직
-            }
-    }
 
-    fun removeReservation(reservation: FacilityResModel) {
-        firestore.collection("reservations").document(reservation.userUid)
-            .delete()
-            .addOnSuccessListener {
-                loadReservationsFromFirestore()  // 데이터 갱신
-            }
-            .addOnFailureListener { exception ->
-                // 실패 처리 로직
-            }
+    //예약 정보를 userUid값으로 가져온다
+    suspend fun getFacilityResData(userUid:String, reservationState:Boolean) {
+        val facilityInfo = facilityResRepository.getFacilityInfoData(userUid, reservationState)
+        val facilityInfoList = mutableListOf<FacilityResModel>()
+
+        facilityInfo.forEach { facilityInfoData ->
+            facilityInfoList.add(facilityInfoData)
+
+            _facilityGetList.value = facilityInfoList
+
+        }
     }
 
     fun setSelectedReservation(reservation: FacilityResModel) {

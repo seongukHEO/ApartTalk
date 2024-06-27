@@ -23,11 +23,12 @@ class FacilityResDataSource {
     }
 
     //userUid 값으로 정보를 가져온다
-    suspend fun getFacilityResInfo(userUid:String) : List<FacilityResModel> {
+    suspend fun getFacilityResInfo(userUid:String,reservationState:Boolean) : List<FacilityResModel> {
         return try {
-            val querySnapshot = db.collection("FacilityResInfo").whereEqualTo("userUid", userUid)
+            val querySnapshot = db.collection("FacilityResInfo")
+                .whereEqualTo("userUid", userUid)
+                .whereEqualTo("reservationState", reservationState)
                 .get().await()
-
             querySnapshot.toObjects(FacilityResModel::class.java)
         }catch (e:Exception){
             emptyList()
