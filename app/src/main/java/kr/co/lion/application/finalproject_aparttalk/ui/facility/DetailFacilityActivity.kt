@@ -33,7 +33,7 @@ class DetailFacilityActivity : AppCompatActivity() {
         settingToolbar()
         checkButton()
         initView()
-        check()
+        //check()
 
     }
 
@@ -135,12 +135,13 @@ class DetailFacilityActivity : AppCompatActivity() {
                     var user = App.userRepository.getUser(authUser.uid)
                     if (user != null){
                         viewModel.getFacilityResData(user.uid, true)
+                        Log.d("test1234", "${user.uid}")
                     }
                 }
             }
 
             viewModel.facilityList.observe(this@DetailFacilityActivity){value ->
-                Log.d("test1234", "${value}")
+
             }
         }
     }
