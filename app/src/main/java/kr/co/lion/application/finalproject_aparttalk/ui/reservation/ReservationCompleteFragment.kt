@@ -1,14 +1,19 @@
 package kr.co.lion.application.finalproject_aparttalk.ui.reservation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import kotlinx.coroutines.launch
+import kr.co.lion.application.finalproject_aparttalk.App
 import kr.co.lion.application.finalproject_aparttalk.databinding.FragmentReservationCompleteBinding
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.adapter.ReservationCompleteRecyclerViewAdapter
@@ -17,8 +22,13 @@ import kr.co.lion.application.finalproject_aparttalk.ui.reservation.adapter.Rese
 class ReservationCompleteFragment : Fragment() {
 
     private lateinit var fragmentReservationCompleteBinding: FragmentReservationCompleteBinding
-    private val reservationViewModel: ReservationViewModel by activityViewModels()
     lateinit var reserveActivity: ReserveActivity
+
+    val viewModel : ReservationViewModel by viewModels()
+
+    val resAdapter : ReservationCompleteRecyclerViewAdapter by lazy {
+        ReservationCompleteRecyclerViewAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +39,7 @@ class ReservationCompleteFragment : Fragment() {
         reserveActivity = activity as ReserveActivity
 
         settingRecyclerview()
-
-        // ViewModel의 데이터를 관찰하여 RecyclerView에 표시
-        reservationViewModel.reservations.observe(viewLifecycleOwner, Observer { reservations ->
-            (fragmentReservationCompleteBinding.recyclerViewTabReservationComplete.adapter as ReservationCompleteRecyclerViewAdapter).submitList(
-                reservations
-            )
-        })
+        gettingData()
 
         return fragmentReservationCompleteBinding.root
     }
@@ -43,11 +47,29 @@ class ReservationCompleteFragment : Fragment() {
     private fun settingRecyclerview() {
         fragmentReservationCompleteBinding.apply {
             recyclerViewTabReservationComplete.apply {
-                adapter = ReservationCompleteRecyclerViewAdapter(requireContext(), reservationViewModel)
+                adapter = ReservationCompleteRecyclerViewAdapter()
                 layoutManager = LinearLayoutManager(reserveActivity)
                 val deco = MaterialDividerItemDecoration(reserveActivity, MaterialDividerItemDecoration.VERTICAL)
                 addItemDecoration(deco)
             }
+        }
+    }
+
+
+    //데이터 받아오기
+    private fun gettingData(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            val authUser = App.authRepository.getCurrentUser()
+            if (authUser != null){
+                var user = App.userRepository.getUser(authUser.uid)
+                if (user != null){
+                    viewModel.getFacilityResData(user.uid, true)
+                }
+            }
+        }
+        viewModel.facilityGetList.observe(reserveActivity){value ->
+            resAdapter.submitList(value)
+            Log.e("testseong", "${value}")
         }
     }
 }

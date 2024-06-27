@@ -30,9 +30,9 @@ class ReservationConfirmFragment : Fragment() {
         reserveActivity = activity as ReserveActivity
 
         settingToolbar()
-        settingButton()
-        observeSelectedReservation()
-        observeReservationCompletion()
+        //settingButton()
+        //observeSelectedReservation()
+        //observeReservationCompletion()
 
         return fragmentReservationConfirmBinding.root
     }
@@ -49,30 +49,30 @@ class ReservationConfirmFragment : Fragment() {
         }
     }
 
-    private fun settingButton() {
-        fragmentReservationConfirmBinding.apply {
-            reservationConfirmButton.setOnClickListener {
-                reservationViewModel.resetReservationCompleted()
-                reserveActivity.finish()
-            }
-        }
-    }
+//    private fun settingButton() {
+//        fragmentReservationConfirmBinding.apply {
+//            reservationConfirmButton.setOnClickListener {
+//                reservationViewModel.resetReservationCompleted()
+//                reserveActivity.finish()
+//            }
+//        }
+//    }
 
-    private fun observeSelectedReservation() {
-        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
-            if (reservation != null) {
-                bindReservationData(reservation)
-            }
-        })
-    }
+//    private fun observeSelectedReservation() {
+//        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
+//            if (reservation != null) {
+//                bindReservationData(reservation)
+//            }
+//        })
+//    }
 
-    private fun observeReservationCompletion() {
-        reservationViewModel.isReservationCompleted.observe(viewLifecycleOwner, Observer { isCompleted ->
-            if (isCompleted == true) {
-                fragmentReservationConfirmBinding.reservationConfirmButton.isEnabled = false
-            }
-        })
-    }
+//    private fun observeReservationCompletion() {
+//        reservationViewModel.isReservationCompleted.observe(viewLifecycleOwner, Observer { isCompleted ->
+//            if (isCompleted == true) {
+//                fragmentReservationConfirmBinding.reservationConfirmButton.isEnabled = false
+//            }
+//        })
+//    }
 
     private fun bindReservationData(reservation: FacilityResModel) {
         fragmentReservationConfirmBinding.apply {

@@ -29,12 +29,12 @@ class ReservationCancelFragment : Fragment() {
 
         settingRecyclerview()
 
-        // ViewModel의 데이터를 관찰하여 RecyclerView에 표시
-        reservationViewModel.reservations.observe(viewLifecycleOwner, Observer { reservations ->
-            (fragmentReservationCancelBinding.recyclerViewTabReservationCancel.adapter as ReservationCancelRecyclerViewAdapter).submitList(
-                reservations
-            )
-        })
+//        // ViewModel의 데이터를 관찰하여 RecyclerView에 표시
+//        reservationViewModel.reservations.observe(viewLifecycleOwner, Observer { reservations ->
+//            (fragmentReservationCancelBinding.recyclerViewTabReservationCancel.adapter as ReservationCancelRecyclerViewAdapter).submitList(
+//                reservations
+//            )
+//        })
 
         return fragmentReservationCancelBinding.root
     }

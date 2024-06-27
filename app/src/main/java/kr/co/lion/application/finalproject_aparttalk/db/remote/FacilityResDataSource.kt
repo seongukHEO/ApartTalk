@@ -1,5 +1,6 @@
 package kr.co.lion.application.finalproject_aparttalk.db.remote
 
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
@@ -23,7 +24,7 @@ class FacilityResDataSource {
     }
 
     //userUid 값으로 정보를 가져온다
-    suspend fun getFacilityResInfo(userUid:String,reservationState:Boolean) : List<FacilityResModel> {
+    suspend fun getFacilityResInfo(userUid:String, reservationState:Boolean) : List<FacilityResModel> {
         return try {
             val querySnapshot = db.collection("FacilityResInfo")
                 .whereEqualTo("userUid", userUid)

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kr.co.lion.application.finalproject_aparttalk.App
 import kr.co.lion.application.finalproject_aparttalk.R
@@ -32,6 +33,7 @@ class DetailFacilityActivity : AppCompatActivity() {
         settingToolbar()
         checkButton()
         initView()
+        check()
 
     }
 
@@ -125,7 +127,22 @@ class DetailFacilityActivity : AppCompatActivity() {
     }
 
     private fun check(){
+        lifecycleScope.launch {
 
+            lifecycleScope.launch {
+                val authUser = App.authRepository.getCurrentUser()
+                if (authUser != null){
+                    var user = App.userRepository.getUser(authUser.uid)
+                    if (user != null){
+                        viewModel.getFacilityResData(user.uid, true)
+                    }
+                }
+            }
+
+            viewModel.facilityList.observe(this@DetailFacilityActivity){value ->
+                Log.d("test1234", "${value}")
+            }
+        }
     }
 
 }

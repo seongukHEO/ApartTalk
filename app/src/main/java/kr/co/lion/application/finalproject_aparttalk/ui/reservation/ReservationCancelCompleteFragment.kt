@@ -32,7 +32,7 @@ class ReservationCancelCompleteFragment() : Fragment() {
         settingToolbar()
         settingButton()
         settingData()
-        observeSelectedReservation()
+        //observeSelectedReservation()
 
         return fragmentReservationCancelCompleteBinding.root
     }
@@ -67,22 +67,22 @@ class ReservationCancelCompleteFragment() : Fragment() {
                 val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-                // 선택된 예약을 취소
-                reservationViewModel.selectedReservation.value?.let { reservation ->
-                    reservationViewModel.removeReservation(reservation)
-                }
+//                // 선택된 예약을 취소
+//                reservationViewModel.selectedReservation.value?.let { reservation ->
+//                    reservationViewModel.removeReservation(reservation)
+//                }
                 reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
             }
         }
     }
 
-    private fun observeSelectedReservation() {
-        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
-            if (reservation != null) {
-                bindReservationData(reservation)
-            }
-        })
-    }
+//    private fun observeSelectedReservation() {
+//        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
+//            if (reservation != null) {
+//                bindReservationData(reservation)
+//            }
+//        })
+//    }
 
     private fun bindReservationData(reservation: FacilityResModel) {
         fragmentReservationCancelCompleteBinding.apply {

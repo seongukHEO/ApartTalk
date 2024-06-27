@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.lion.application.finalproject_aparttalk.databinding.RowMylikeTabLikeBinding
+import kr.co.lion.application.finalproject_aparttalk.databinding.RowParkingReserveBinding
 import kr.co.lion.application.finalproject_aparttalk.databinding.RowReservationItemBinding
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 import kr.co.lion.application.finalproject_aparttalk.ui.community.activity.CommunityActivity
@@ -18,45 +19,36 @@ import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReserveActiv
 import kr.co.lion.application.finalproject_aparttalk.util.CommunityFragmentName
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
 
-class ReservationCompleteRecyclerViewAdapter(
-    private val context: Context,
-    private val viewModel: ReservationViewModel
-) : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(FacilityResModelDiffCallback()) {
+class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(FacilityResModelDiffCallback()) {
 
-    inner class ReservationCompleteViewHolder(val binding: RowReservationItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class ReservationCompleteViewHolder(val binding: RowReservationItemBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: FacilityResModel){
+            binding.apply {
+                reservationTextViewDate.text = item.reservationDate
+                textViewReservationLabelEtc.text = if (item.reservationState) "예약완료" else "예약취소"
+                reservationTextViewPrice.text = item.usePrice
+                reservationTextViewTime.text = item.useTime
+                reservationTextViewFacility.text = item.titleText
+            }
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ReservationCompleteViewHolder {
-        val binding = RowReservationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ReservationCompleteViewHolder(binding)
+        return ReservationCompleteViewHolder(RowReservationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(
         holder: ReservationCompleteViewHolder, position: Int
     ) {
-        val reservation = getItem(position)
-        holder.binding.apply {
-            reservationTextViewDate.text = reservation.reservationDate
-            textViewReservationLabelEtc.text = if (reservation.reservationState) "예약완료" else "예약취소"
-            reservationTextViewPrice.text = reservation.usePrice
-            reservationTextViewTime.text = reservation.useTime
-            reservationTextViewFacility.text = reservation.titleText
-
-            reservationLayout.setOnClickListener {
-                viewModel.setSelectedReservation(reservation)
-                (context as ReserveActivity).replaceFragment(
-                    ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT, true, true, null
-                )
-            }
-        }
+       holder.bind(currentList[position])
     }
 
     class FacilityResModelDiffCallback : DiffUtil.ItemCallback<FacilityResModel>() {
         override fun areItemsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
-            return oldItem.userUid == newItem.userUid
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
