@@ -126,24 +126,4 @@ class DetailFacilityActivity : AppCompatActivity() {
         }
     }
 
-    private fun check(){
-        lifecycleScope.launch {
-
-            lifecycleScope.launch {
-                val authUser = App.authRepository.getCurrentUser()
-                if (authUser != null){
-                    var user = App.userRepository.getUser(authUser.uid)
-                    if (user != null){
-                        viewModel.getFacilityResData(user.uid, true)
-                        Log.d("test1234", "${user.uid}")
-                    }
-                }
-            }
-
-            viewModel.facilityList.observe(this@DetailFacilityActivity){value ->
-
-            }
-        }
-    }
-
 }

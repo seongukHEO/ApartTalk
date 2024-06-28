@@ -12,6 +12,7 @@ import kr.co.lion.application.finalproject_aparttalk.databinding.RowMylikeTabLik
 import kr.co.lion.application.finalproject_aparttalk.databinding.RowParkingReserveBinding
 import kr.co.lion.application.finalproject_aparttalk.databinding.RowReservationItemBinding
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
+import kr.co.lion.application.finalproject_aparttalk.model.ParkingModel
 import kr.co.lion.application.finalproject_aparttalk.ui.community.activity.CommunityActivity
 import kr.co.lion.application.finalproject_aparttalk.ui.mywrite.adapter.MyLikeRecyclerViewAdapter
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReservationViewModel
@@ -19,13 +20,14 @@ import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReserveActiv
 import kr.co.lion.application.finalproject_aparttalk.util.CommunityFragmentName
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
 
-class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(FacilityResModelDiffCallback()) {
+class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(
+    differ) {
 
     inner class ReservationCompleteViewHolder(val binding: RowReservationItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: FacilityResModel){
             binding.apply {
                 reservationTextViewDate.text = item.reservationDate
-                textViewReservationLabelEtc.text = if (item.reservationState) "예약완료" else "예약취소"
+                textViewReservationLabelEtc.text = if (item.reservationState) "예약완료" else ""
                 reservationTextViewPrice.text = item.usePrice
                 reservationTextViewTime.text = item.useTime
                 reservationTextViewFacility.text = item.titleText
@@ -46,13 +48,16 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
        holder.bind(currentList[position])
     }
 
-    class FacilityResModelDiffCallback : DiffUtil.ItemCallback<FacilityResModel>() {
-        override fun areItemsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
-            return oldItem == newItem
-        }
+    companion object{
+        val differ = object : DiffUtil.ItemCallback<FacilityResModel>(){
+            override fun areItemsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
+                return oldItem == newItem
+            }
 
-        override fun areContentsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: FacilityResModel, newItem: FacilityResModel): Boolean {
+                return oldItem == newItem
+            }
+
         }
     }
 }
