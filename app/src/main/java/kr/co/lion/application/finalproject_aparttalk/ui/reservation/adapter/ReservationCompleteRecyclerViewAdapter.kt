@@ -23,6 +23,8 @@ import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
 class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(
     differ) {
 
+    private lateinit var recyclerviewClick:ItemOnResClickListener
+
     inner class ReservationCompleteViewHolder(val binding: RowReservationItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: FacilityResModel){
             binding.apply {
@@ -31,6 +33,9 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
                 reservationTextViewPrice.text = item.usePrice
                 reservationTextViewTime.text = item.useTime
                 reservationTextViewFacility.text = item.titleText
+                root.setOnClickListener {
+                    recyclerviewClick.recyclerviewClickListener()
+                }
             }
         }
     }
@@ -59,5 +64,13 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
             }
 
         }
+    }
+
+    fun serRecyclerviewClick(recyclerviewClick: ItemOnResClickListener){
+        this.recyclerviewClick = recyclerviewClick
+    }
+
+    interface ItemOnResClickListener{
+        fun recyclerviewClickListener()
     }
 }

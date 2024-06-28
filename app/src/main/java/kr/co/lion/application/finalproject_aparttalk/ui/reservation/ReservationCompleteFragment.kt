@@ -17,6 +17,7 @@ import kr.co.lion.application.finalproject_aparttalk.App
 import kr.co.lion.application.finalproject_aparttalk.databinding.FragmentReservationCompleteBinding
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.adapter.ReservationCompleteRecyclerViewAdapter
+import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
 
 
 class ReservationCompleteFragment : Fragment() {
@@ -27,7 +28,13 @@ class ReservationCompleteFragment : Fragment() {
     val viewModel : ReservationViewModel by viewModels()
 
     val resAdapter : ReservationCompleteRecyclerViewAdapter by lazy {
-        ReservationCompleteRecyclerViewAdapter()
+        val adapter = ReservationCompleteRecyclerViewAdapter()
+        adapter.serRecyclerviewClick(object : ReservationCompleteRecyclerViewAdapter.ItemOnResClickListener{
+            override fun recyclerviewClickListener() {
+                reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT, true, true, null)
+            }
+        })
+        adapter
     }
 
     override fun onCreateView(
