@@ -11,5 +11,7 @@ class FacilityResRepository {
 
     suspend fun getFacilityInfoData(userUid:String, reservationState: Boolean) = facilityResDataSource.getFacilityResInfo(userUid, reservationState)
 
+    suspend fun getResTime() = facilityResDataSource.getTime()
+
 
 }

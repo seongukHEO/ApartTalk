@@ -71,6 +71,7 @@ class ReservationCompleteFragment : Fragment() {
                 var user = App.userRepository.getUser(authUser.uid)
                 if (user != null){
                     viewModel.getFacilityResData(user.uid, true)
+                    //viewModel.getTime()
                 }
             }
         }

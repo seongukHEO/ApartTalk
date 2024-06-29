@@ -2,7 +2,9 @@ package kr.co.lion.application.finalproject_aparttalk.db.remote
 
 import android.util.Log
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +31,18 @@ class FacilityResDataSource {
             val querySnapshot = db.collection("FacilityResInfo")
                 .whereEqualTo("userUid", userUid)
                 .whereEqualTo("reservationState", reservationState)
+                .get().await()
+            querySnapshot.toObjects(FacilityResModel::class.java)
+        }catch (e:Exception){
+            emptyList()
+        }
+    }
+
+    //시간순으로 데이터 받아오기
+    suspend fun getTime():List<FacilityResModel> {
+        return try {
+            val querySnapshot = db.collection("FacilityResInfo")
+                .orderBy("reserveTime", Query.Direction.DESCENDING)
                 .get().await()
             querySnapshot.toObjects(FacilityResModel::class.java)
         }catch (e:Exception){
