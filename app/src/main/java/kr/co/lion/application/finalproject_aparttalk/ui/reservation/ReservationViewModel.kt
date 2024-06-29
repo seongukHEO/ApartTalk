@@ -19,11 +19,6 @@ class ReservationViewModel : ViewModel() {
     val facilityGetList: LiveData<List<FacilityResModel>> get() = _facilityGetList
 
 
-    init {
-        viewModelScope.launch {
-            getTime()
-        }
-    }
 
     // 예약 정보를 userUid값으로 가져온다
     suspend fun getFacilityResData(userUid: String, reservationState: Boolean) {

@@ -62,9 +62,11 @@ class FacilityResDataSource {
             val querySnapshot = db.collection("FacilityResInfo")
                 .whereEqualTo("userUid", userUid)
                 .whereEqualTo("reservationState", reservationState)
+                .orderBy("reserveTime", Query.Direction.DESCENDING)
                 .get().await()
             querySnapshot.toObjects(FacilityResModel::class.java)
         }catch (e:Exception){
+            Log.e("FirestoreError", "Error fetching data", e)
             emptyList()
         }
     }
