@@ -32,7 +32,14 @@ class FacilityResInfoViewmodel : ViewModel() {
         val reserveTime = Timestamp.now()
 
         viewModelScope.launch {
-            val facilityResData = FacilityResModel(userUid, titleText, useTime, imageRes, usePrice, reservationState, reservationData, userName, userNumber, reserveTime)
+
+            val facilityResSequence = facilityResRepository.getFacilityResSequence()
+
+            facilityResRepository.updateFacilityResSequence(facilityResSequence + 1)
+
+            val facilityResIdx = facilityResSequence + 1
+
+            val facilityResData = FacilityResModel(userUid, titleText, useTime, imageRes, usePrice, reservationState, reservationData, userName, userNumber, reserveTime, facilityResIdx)
             val success = withContext(Dispatchers.IO){
                 try {
                     facilityResRepository.insertResData(facilityResData)

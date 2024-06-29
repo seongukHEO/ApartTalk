@@ -16,6 +16,37 @@ class FacilityResDataSource {
 
     private val db = Firebase.firestore
 
+    //예약 시퀀스를 가져온다
+    suspend fun getResSequence():Int{
+        //값 초기화
+        var facilityResSequence = 0
+
+        var job1 = CoroutineScope(Dispatchers.IO).launch {
+            val collectionReference = db.collection("Sequence")
+            val documentReference = collectionReference.document("FacilityResSequence")
+            val documentSnapshot = documentReference.get().await()
+
+            facilityResSequence = documentSnapshot.getLong("value")?.toInt()?:-1
+        }
+
+        job1.join()
+
+        return facilityResSequence
+    }
+
+
+    //시퀀스 업데이트
+    suspend fun updateFacilitySequence(facilityResSequence:Int){
+        val job1 = CoroutineScope(Dispatchers.IO).launch {
+            val collectionReference = db.collection("Sequence")
+            val documentReference = collectionReference.document("FacilityResSequence")
+            val map = mutableMapOf<String, Long>()
+            map["value"] = facilityResSequence.toLong()
+            documentReference.set(map)
+        }
+        job1.join()
+    }
+
     //예약 정보를 저장한다
     suspend fun insertResInfo(facilityResModel: FacilityResModel){
         val job1 = CoroutineScope(Dispatchers.IO).launch {

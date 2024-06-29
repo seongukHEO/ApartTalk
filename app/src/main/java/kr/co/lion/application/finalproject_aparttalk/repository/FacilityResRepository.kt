@@ -7,6 +7,11 @@ class FacilityResRepository {
 
     private var facilityResDataSource = FacilityResDataSource()
 
+    suspend fun getFacilityResSequence() = facilityResDataSource.getResSequence()
+
+    suspend fun updateFacilityResSequence(facilityResSequence:Int) = facilityResDataSource.updateFacilitySequence(facilityResSequence)
+
+
     suspend fun insertResData(facilityResModel: FacilityResModel) = facilityResDataSource.insertResInfo(facilityResModel)
 
     suspend fun getFacilityInfoData(userUid:String, reservationState: Boolean) = facilityResDataSource.getFacilityResInfo(userUid, reservationState)

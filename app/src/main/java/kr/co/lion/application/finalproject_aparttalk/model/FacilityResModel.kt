@@ -12,5 +12,6 @@ data class FacilityResModel (
     val reservationDate:String = "",
     val userName:String? = "",
     val userNumber:String? = "",
-    val reserveTime:Timestamp = Timestamp.now()
+    val reserveTime:Timestamp = Timestamp.now(),
+    val facilityResIdx:Int = 0
 )
