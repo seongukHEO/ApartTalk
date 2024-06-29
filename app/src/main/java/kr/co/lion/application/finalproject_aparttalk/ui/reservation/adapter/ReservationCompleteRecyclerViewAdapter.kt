@@ -19,6 +19,8 @@ import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReservationV
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReserveActivity
 import kr.co.lion.application.finalproject_aparttalk.util.CommunityFragmentName
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
+import kr.co.lion.application.finalproject_aparttalk.util.setImage
+import java.net.URL
 
 class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, ReservationCompleteRecyclerViewAdapter.ReservationCompleteViewHolder>(
     differ) {
@@ -28,6 +30,7 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
     inner class ReservationCompleteViewHolder(val binding: RowReservationItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: FacilityResModel){
             binding.apply {
+                root.context.setImage(reservationImageView, item.imageRes)
                 reservationTextViewDate.text = item.reservationDate
                 textViewReservationLabelEtc.text = if (item.reservationState) "예약완료" else ""
                 reservationTextViewPrice.text = item.usePrice
