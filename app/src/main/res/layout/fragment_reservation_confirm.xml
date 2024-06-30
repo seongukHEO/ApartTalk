@@ -45,7 +45,6 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/notosans_semibold"
             android:includeFontPadding="false"
-            android:text="2024.05.17"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +66,6 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/notosans_semibold"
             android:includeFontPadding="false"
-            android:text="수영장"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/reservationConfirmImageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +78,6 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="2024.05.19"
             app:layout_constraintStart_toEndOf="@+id/reservationConfirmImageView"
             app:layout_constraintTop_toBottomOf="@+id/reservationConfirmTextViewFacility" />
 
@@ -92,7 +89,6 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="15:00 ~ 17:00"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/reservationConfirmImageView"
             app:layout_constraintTop_toBottomOf="@+id/reservationConfirmTextViewReservedDate" />
@@ -103,7 +99,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="40,000 원"
             android:fontFamily="@font/notosans_semibold"
             android:includeFontPadding="false"
             android:textColor="@color/third"
@@ -158,7 +153,6 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="홍길동"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -184,7 +178,6 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="010-1234-5678"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reservationConfirmTextViewName" />
@@ -198,31 +191,40 @@
         android:layout_marginTop="30dp"
         android:background="@color/lightGray" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="15dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/reservationConfirmButton"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/reserveCancelButton"
+            android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/style_pointbutton_radias"
-            android:fontFamily="@font/notosans_semibold"
-            android:includeFontPadding="false"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#73C0B0"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="예약 취소"
+            android:textSize="16sp"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/reservationConfirmButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#73C0B0"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="확인"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.979" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textSize="16sp"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
 
 
 </LinearLayout>

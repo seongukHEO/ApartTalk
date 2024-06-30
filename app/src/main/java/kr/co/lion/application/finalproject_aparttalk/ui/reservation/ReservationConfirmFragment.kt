@@ -17,6 +17,7 @@ import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 import kr.co.lion.application.finalproject_aparttalk.model.UserModel
 import kr.co.lion.application.finalproject_aparttalk.ui.info.UserViewModel
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
+import kr.co.lion.application.finalproject_aparttalk.util.setImage
 
 
 class ReservationConfirmFragment : Fragment() {
@@ -35,7 +36,7 @@ class ReservationConfirmFragment : Fragment() {
         reserveActivity = activity as ReserveActivity
 
         settingToolbar()
-        //settingButton()
+        settingButton()
         //observeSelectedReservation()
         //observeReservationCompletion()
         bindReservationData()
@@ -47,22 +48,17 @@ class ReservationConfirmFragment : Fragment() {
         fragmentReservationConfirmBinding.apply {
             reservationConfirmToolbar.apply {
                 textViewReservationConfirmToolbarTitle.text = "예약내역"
-                setNavigationIcon(R.drawable.icon_back)
-                setNavigationOnClickListener {
-                    reserveActivity.removeFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT)
-                }
             }
         }
     }
 
-//    private fun settingButton() {
-//        fragmentReservationConfirmBinding.apply {
-//            reservationConfirmButton.setOnClickListener {
-//                reservationViewModel.resetReservationCompleted()
-//                reserveActivity.finish()
-//            }
-//        }
-//    }
+    private fun settingButton() {
+        fragmentReservationConfirmBinding.apply {
+            reservationConfirmButton.setOnClickListener {
+                reserveActivity.removeFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT)
+            }
+        }
+    }
 
 //    private fun observeSelectedReservation() {
 //        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
@@ -89,6 +85,7 @@ class ReservationConfirmFragment : Fragment() {
             require(facilityInfo != null)
 
             fragmentReservationConfirmBinding.apply {
+                root.context.setImage(reservationConfirmImageView, facilityInfo.imageRes)
                 reservationConfirmTextViewName.text = facilityInfo.userName ?: "이름 없음"
                 reservationConfirmTextViewPhoneNumber.text = facilityInfo.userNumber ?: "전화번호 없음"
                 reservationConfirmTextViewDate.text = facilityInfo.reservationDate
