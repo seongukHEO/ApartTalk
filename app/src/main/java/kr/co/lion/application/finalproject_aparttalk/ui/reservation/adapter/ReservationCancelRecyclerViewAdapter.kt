@@ -13,14 +13,23 @@ import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReservationViewModel
 import kr.co.lion.application.finalproject_aparttalk.ui.reservation.ReserveActivity
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
+import kr.co.lion.application.finalproject_aparttalk.util.setImage
 
-class ReservationCancelRecyclerViewAdapter(
-    val context: Context,
-    private val viewModel: ReservationViewModel
-) : ListAdapter<FacilityResModel, ReservationCancelRecyclerViewAdapter.ReservationCancelViewHolder>(FacilityResModelDiffCallback()) {
+class ReservationCancelRecyclerViewAdapter: ListAdapter<FacilityResModel, ReservationCancelRecyclerViewAdapter.ReservationCancelViewHolder>(FacilityResModelDiffCallback()) {
 
-    inner class ReservationCancelViewHolder(val binding: RowReservationCancelItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class ReservationCancelViewHolder(val binding: RowReservationCancelItemBinding) : RecyclerView.ViewHolder(binding.root){
+            fun bind(item:FacilityResModel){
+                binding.apply {
+                    root.context.setImage(reservationCancelImageView, item.imageRes)
+                    reservationCancelTextViewDate.text = item.reservationDate
+                    textViewReservationCancelLabelEtc.text = if (item.reservationState == false) "예약취소" else ""
+                    reservationCancelTextViewPrice.text = item.usePrice
+                    reservationCancelTextViewTime.text = item.useTime
+                    reservationCancelTextViewFacility.text = item.titleText
+
+                }
+            }
+        }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,21 +42,7 @@ class ReservationCancelRecyclerViewAdapter(
     override fun onBindViewHolder(
         holder: ReservationCancelViewHolder, position: Int
     ) {
-        val reservation = getItem(position)
-//        holder.binding.apply {
-//            reservationCancelTextViewDate.text = reservation.reservationDate
-//            textViewReservationCancelLabelEtc.text = if (reservation.reservationState) "예약완료" else "예약취소"
-//            reservationCancelTextViewPrice.text = reservation.usePrice
-//            reservationCancelTextViewTime.text = reservation.useTime
-//            reservationCancelTextViewFacility.text = reservation.titleText
-//
-//            reservationCancelLayout.setOnClickListener {
-//                viewModel.setSelectedReservation(reservation)
-//                (context as ReserveActivity).replaceFragment(
-//                    ReserveFragmentName.RESERVATION_CANCEL_COMPLETE_FRAGMENT, true, true, null
-//                )
-//            }
-//        }
+        holder.bind(currentList[position])
     }
 
     class FacilityResModelDiffCallback : DiffUtil.ItemCallback<FacilityResModel>() {

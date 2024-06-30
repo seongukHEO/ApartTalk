@@ -80,7 +80,7 @@ class ReservationCompleteFragment : Fragment() {
         }
         viewModel.facilityGetList.observe(reserveActivity){value ->
             resAdapter.submitList(value)
-            Log.e("testseong", "${value}")
+            //Log.e("testseong", "${value}")
         }
     }
 }
