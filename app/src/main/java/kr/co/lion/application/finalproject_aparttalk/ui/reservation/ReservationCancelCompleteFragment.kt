@@ -1,13 +1,18 @@
 package kr.co.lion.application.finalproject_aparttalk.ui.reservation
 
+import android.app.Dialog
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -68,15 +73,36 @@ class ReservationCancelCompleteFragment() : Fragment() {
 
     fun settingButton() {
         fragmentReservationCancelCompleteBinding.apply {
+
             reservationCancelButton.setOnClickListener {
+            if (reservationCancelEditTextContent.text?.isEmpty() == false){
 
+                    val dialog = DialogConfirm("예약 취소 완료", "예약 취소가 되었습니다", reserveActivity)
+                    dialog.setDialogButtonClickListener(object : DialogConfirm.OnButtonClickListener{
+                        override fun okButtonClick() {
+                            // 키보드를 내리는 기능 추가
+                            val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
+                            reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
+                        }
 
-                // 키보드를 내리는 기능 추가
-                val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                    })
+                    dialog.show(reserveActivity.supportFragmentManager, "DialogConfirm")
 
-                reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
+            }else{
+                    val dialog = DialogConfirm("예약 취소 오류", "예약 취소 사유를 입력해주세요", reserveActivity)
+                    dialog.setDialogButtonClickListener(object : DialogConfirm.OnButtonClickListener{
+                        override fun okButtonClick() {
+                            // 키보드를 내리는 기능 추가
+                            val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
+                        }
+
+                    })
+                    dialog.show(reserveActivity.supportFragmentManager, "DialogConfirm")
+                }
             }
         }
     }
@@ -100,3 +126,4 @@ class ReservationCancelCompleteFragment() : Fragment() {
         }
     }
 }
+
