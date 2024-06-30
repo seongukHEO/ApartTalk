@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kr.co.lion.application.finalproject_aparttalk.model.FacilityModel
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 
 class FacilityResDataSource {
@@ -71,16 +72,23 @@ class FacilityResDataSource {
         }
     }
 
-    //시간순으로 데이터 받아오기
-    suspend fun getTime():List<FacilityResModel> {
-        return try {
-            val querySnapshot = db.collection("FacilityResInfo")
-                .orderBy("reserveTime", Query.Direction.DESCENDING)
+
+    //facilityResIdx로 데이터 받아오기
+    suspend fun getDataByIdx(facilityResIdx:Int):FacilityResModel? {
+        var facilityResModel:FacilityResModel? = null
+
+        var job1 = CoroutineScope(Dispatchers.IO).launch {
+            val collectionReference = db.collection("FacilityResInfo")
+            val querySnapshot = collectionReference.whereEqualTo("facilityResIdx", facilityResIdx)
                 .get().await()
-            querySnapshot.toObjects(FacilityResModel::class.java)
-        }catch (e:Exception){
-            emptyList()
+
+            if (querySnapshot.isEmpty == false){
+                facilityResModel = querySnapshot.documents[0].toObject(FacilityResModel::class.java)
+            }
         }
+        job1.join()
+
+        return facilityResModel
     }
 
 }

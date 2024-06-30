@@ -35,7 +35,8 @@ class ReservationViewModel : ViewModel() {
         }
     }
 
-    suspend fun getTime(){
-        _facilityGetList.value = facilityResRepository.getResTime()
+    //facilityResIdx 값으로 데이터 가져오기
+    suspend fun getDataByIdx(facilityResIdx:Int): FacilityResModel? {
+        return facilityResRepository.getDataByIdx(facilityResIdx)
     }
 }
