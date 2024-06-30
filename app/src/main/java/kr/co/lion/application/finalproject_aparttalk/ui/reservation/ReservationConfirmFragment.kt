@@ -86,21 +86,18 @@ class ReservationConfirmFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             val facilityInfo = viewModel.getDataByIdx(facilityResIdx?:-1)
 
+            require(facilityInfo != null)
+
+            fragmentReservationConfirmBinding.apply {
+                reservationConfirmTextViewName.text = facilityInfo.userName ?: "이름 없음"
+                reservationConfirmTextViewPhoneNumber.text = facilityInfo.userNumber ?: "전화번호 없음"
+                reservationConfirmTextViewDate.text = facilityInfo.reservationDate
+                reservationConfirmTextViewFacility.text = facilityInfo.titleText
+                reservationConfirmTextViewReservedDate.text = facilityInfo.reservationDate
+                reservationConfirmTextViewTime.text = facilityInfo.useTime
+                reservationConfirmTextViewPrice.text = facilityInfo.usePrice
+            }
+
         }
-
-
-
     }
-
-
-//        fragmentReservationConfirmBinding.apply {
-//            reservationConfirmTextViewName.text = reservation.userName ?: "이름 없음"
-//            reservationConfirmTextViewPhoneNumber.text = reservation.userNumber ?: "전화번호 없음"
-//            reservationConfirmTextViewDate.text = reservation.reservationDate
-//            reservationConfirmTextViewFacility.text = reservation.titleText
-//            reservationConfirmTextViewReservedDate.text = reservation.reservationDate
-//            reservationConfirmTextViewTime.text = reservation.useTime
-//            reservationConfirmTextViewPrice.text = reservation.usePrice
-//        }
-//    }
 }
