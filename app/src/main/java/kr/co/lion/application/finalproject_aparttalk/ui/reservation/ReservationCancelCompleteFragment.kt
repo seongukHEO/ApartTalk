@@ -9,18 +9,24 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import kr.co.lion.application.finalproject_aparttalk.R
 import kr.co.lion.application.finalproject_aparttalk.databinding.FragmentReservationCancelCompleteBinding
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
+import kr.co.lion.application.finalproject_aparttalk.ui.facility.viewmodel.FacilityResInfoViewmodel
+import kr.co.lion.application.finalproject_aparttalk.util.DialogConfirm
 import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
+import kr.co.lion.application.finalproject_aparttalk.util.setImage
 
 
 class ReservationCancelCompleteFragment() : Fragment() {
 
     lateinit var fragmentReservationCancelCompleteBinding: FragmentReservationCancelCompleteBinding
     lateinit var reserveActivity: ReserveActivity
-    private val reservationViewModel: ReservationViewModel by activityViewModels()
+    val viewModel : ReservationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +38,7 @@ class ReservationCancelCompleteFragment() : Fragment() {
         settingToolbar()
         settingButton()
         settingData()
-        //observeSelectedReservation()
+        bindReservationData()
 
         return fragmentReservationCancelCompleteBinding.root
     }
@@ -45,7 +51,7 @@ class ReservationCancelCompleteFragment() : Fragment() {
                 setNavigationIcon(R.drawable.icon_back)
                 setNavigationOnClickListener {
                     // 전화면으로 돌아가기.
-                    reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
+                    reserveActivity.removeFragment(ReserveFragmentName.RESERVATION_CANCEL_COMPLETE_FRAGMENT)
                 }
             }
         }
@@ -63,33 +69,34 @@ class ReservationCancelCompleteFragment() : Fragment() {
     fun settingButton() {
         fragmentReservationCancelCompleteBinding.apply {
             reservationCancelButton.setOnClickListener {
+
+
+
                 // 키보드를 내리는 기능 추가
                 val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-//                // 선택된 예약을 취소
-//                reservationViewModel.selectedReservation.value?.let { reservation ->
-//                    reservationViewModel.removeReservation(reservation)
-//                }
                 reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
             }
         }
     }
 
-//    private fun observeSelectedReservation() {
-//        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
-//            if (reservation != null) {
-//                bindReservationData(reservation)
-//            }
-//        })
-//    }
 
-    private fun bindReservationData(reservation: FacilityResModel) {
-        fragmentReservationCancelCompleteBinding.apply {
-            reservationCancelTextViewDate.text = reservation.reservationDate
-            reservationCancelTextViewPrice.text = reservation.usePrice
-            reservationCancelTextViewTime.text = reservation.useTime
-            reservationCancelTextViewFacility.text = reservation.titleText
+    private fun bindReservationData() {
+        val facilityResIdx = arguments?.getInt("facilityResIdx")
+        require(facilityResIdx != null)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val data = viewModel.getDataByIdx(facilityResIdx)
+            require(data != null)
+
+            fragmentReservationCancelCompleteBinding.apply {
+                root.context.setImage(reservationCancelImageView, data.imageRes)
+                reservationCancelTextViewReservedDate.setText(data.reservationDate)
+                reservationCancelTextViewDate.text = data.reservationDate
+                reservationCancelTextViewPrice.text = data.usePrice
+                reservationCancelTextViewTime.text = data.useTime
+                reservationCancelTextViewFacility.text = data.titleText
+            }
         }
     }
 }

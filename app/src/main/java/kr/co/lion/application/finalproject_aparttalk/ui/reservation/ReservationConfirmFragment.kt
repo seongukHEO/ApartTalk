@@ -37,8 +37,6 @@ class ReservationConfirmFragment : Fragment() {
 
         settingToolbar()
         settingButton()
-        //observeSelectedReservation()
-        //observeReservationCompletion()
         bindReservationData()
 
         return fragmentReservationConfirmBinding.root
@@ -57,24 +55,17 @@ class ReservationConfirmFragment : Fragment() {
             reservationConfirmButton.setOnClickListener {
                 reserveActivity.removeFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT)
             }
+            reserveCancelButton.setOnClickListener {
+                //예약 취소
+                val facilityResIdx = arguments?.getInt("facilityResIdx", 0)
+                require(facilityResIdx != null)
+                val bundle = Bundle()
+                bundle.putInt("facilityResIdx", facilityResIdx)
+                reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_CANCEL_COMPLETE_FRAGMENT, true, true, bundle)
+            }
         }
     }
 
-//    private fun observeSelectedReservation() {
-//        reservationViewModel.selectedReservation.observe(viewLifecycleOwner, Observer { reservation ->
-//            if (reservation != null) {
-//                bindReservationData(reservation)
-//            }
-//        })
-//    }
-
-//    private fun observeReservationCompletion() {
-//        reservationViewModel.isReservationCompleted.observe(viewLifecycleOwner, Observer { isCompleted ->
-//            if (isCompleted == true) {
-//                fragmentReservationConfirmBinding.reservationConfirmButton.isEnabled = false
-//            }
-//        })
-//    }
 
     private fun bindReservationData() {
         val facilityResIdx = arguments?.getInt("facilityResIdx", 0)
