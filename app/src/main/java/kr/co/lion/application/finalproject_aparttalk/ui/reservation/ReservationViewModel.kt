@@ -39,4 +39,8 @@ class ReservationViewModel : ViewModel() {
     suspend fun getDataByIdx(facilityResIdx:Int): FacilityResModel? {
         return facilityResRepository.getDataByIdx(facilityResIdx)
     }
+
+    suspend fun updateResState(facilityResIdx: Int){
+        facilityResRepository.updateResState(facilityResIdx)
+    }
 }

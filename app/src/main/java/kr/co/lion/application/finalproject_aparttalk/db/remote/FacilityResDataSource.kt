@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityModel
 import kr.co.lion.application.finalproject_aparttalk.model.FacilityResModel
 
@@ -90,5 +91,27 @@ class FacilityResDataSource {
 
         return facilityResModel
     }
+
+
+    //예약 상태 변경
+    suspend fun updateRes(facilityResIdx: Int) {
+        try {
+            withContext(Dispatchers.IO) {
+                val querySnapshot = db.collection("FacilityResInfo")
+                    .whereEqualTo("facilityResIdx", facilityResIdx)
+                    .get().await()
+
+                if (querySnapshot.documents.isNotEmpty()) {
+                    querySnapshot.documents[0].reference.update("reservationState", false).await()
+                    Log.d("FirestoreUpdate", "DocumentSnapshot successfully updated!")
+                } else {
+                    Log.w("FirestoreUpdate", "No document found with facilityResIdx: $facilityResIdx")
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("FirestoreUpdate", "Error updating document", e)
+        }
+    }
+
 
 }

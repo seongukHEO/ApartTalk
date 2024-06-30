@@ -19,5 +19,7 @@ class FacilityResRepository {
 
     suspend fun getDataByIdx(facilityResIdx:Int) = facilityResDataSource.getDataByIdx(facilityResIdx)
 
+    suspend fun updateResState(facilityResIdx: Int) = facilityResDataSource.updateRes(facilityResIdx)
+
 
 }

@@ -84,7 +84,14 @@ class ReservationCancelCompleteFragment() : Fragment() {
                             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                             inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-                            reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_FRAGMENT, true, true, null)
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                val facilityResIdx = arguments?.getInt("facilityResIdx")
+                                require(facilityResIdx != null)
+
+                                viewModel.updateResState(facilityResIdx)
+                            }
+
+                            reserveActivity.finish()
                         }
 
                     })
