@@ -37,7 +37,7 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
                 reservationTextViewTime.text = item.useTime
                 reservationTextViewFacility.text = item.titleText
                 root.setOnClickListener {
-                    recyclerviewClick.recyclerviewClickListener()
+                    recyclerviewClick.recyclerviewClickListener(item.facilityResIdx)
                 }
             }
         }
@@ -74,6 +74,6 @@ class ReservationCompleteRecyclerViewAdapter : ListAdapter<FacilityResModel, Res
     }
 
     interface ItemOnResClickListener{
-        fun recyclerviewClickListener()
+        fun recyclerviewClickListener(facilityResIdx:Int)
     }
 }

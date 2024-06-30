@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.google.firebase.firestore.core.Bound
 import kotlinx.coroutines.launch
 import kr.co.lion.application.finalproject_aparttalk.App
 import kr.co.lion.application.finalproject_aparttalk.databinding.FragmentReservationCompleteBinding
@@ -30,8 +31,10 @@ class ReservationCompleteFragment : Fragment() {
     val resAdapter : ReservationCompleteRecyclerViewAdapter by lazy {
         val adapter = ReservationCompleteRecyclerViewAdapter()
         adapter.serRecyclerviewClick(object : ReservationCompleteRecyclerViewAdapter.ItemOnResClickListener{
-            override fun recyclerviewClickListener() {
-                reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT, true, true, null)
+            override fun recyclerviewClickListener(facilityResIdx: Int) {
+                val bundle = Bundle()
+                bundle.putInt("facilityResIdx", facilityResIdx)
+                reserveActivity.replaceFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT, true, true, bundle)
             }
         })
         adapter
