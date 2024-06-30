@@ -19,7 +19,6 @@ import kr.co.lion.application.finalproject_aparttalk.util.ReserveFragmentName
 class ReservationConfirmFragment : Fragment() {
 
     private lateinit var fragmentReservationConfirmBinding: FragmentReservationConfirmBinding
-    private val reservationViewModel: ReservationViewModel by activityViewModels()
     private lateinit var reserveActivity: ReserveActivity
 
     override fun onCreateView(
@@ -43,7 +42,7 @@ class ReservationConfirmFragment : Fragment() {
                 textViewReservationConfirmToolbarTitle.text = "예약내역"
                 setNavigationIcon(R.drawable.icon_back)
                 setNavigationOnClickListener {
-                    reserveActivity.finish()
+                    reserveActivity.removeFragment(ReserveFragmentName.RESERVATION_CONFIRM_FRAGMENT)
                 }
             }
         }
